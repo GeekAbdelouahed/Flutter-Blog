@@ -88,7 +88,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             const Spacer(),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  AppRoutes.home,
+                  ModalRoute.withName('/'),
+                );
               },
               child: Text(
                 'Getting Started',
