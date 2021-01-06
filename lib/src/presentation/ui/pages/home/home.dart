@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../articles/articles.dart';
+import 'widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,8 +9,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _pageController = PageController();
-  int _selectedIndex = 0;
+  final _controller = PageController();
+
+  final _indexNotifier = ValueNotifier<int>(0);
 
   List<Widget> _screens = [
     ArticlesPage(),
@@ -28,36 +29,13 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  List<GButton> _tabs = [
-    GButton(
-      text: 'Articles',
-      icon: Icons.article_outlined,
-      borderRadius: BorderRadius.circular(12.5),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    ),
-    GButton(
-      text: 'Search',
-      icon: Icons.search,
-      borderRadius: BorderRadius.circular(12.5),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    ),
-    GButton(
-      text: 'Favorite',
-      icon: Icons.favorite_border,
-      borderRadius: BorderRadius.circular(12.5),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    ),
-    GButton(
-      text: 'Profile',
-      icon: Icons.account_circle_outlined,
-      borderRadius: BorderRadius.circular(12.5),
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _indexNotifier.addListener(() {
+      _controller.jumpToPage(_indexNotifier.value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -65,11 +43,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             Positioned.fill(
               child: PageView(
-                controller: _pageController,
+                controller: _controller,
                 onPageChanged: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
+                  _indexNotifier.value = index;
                 },
                 children: _screens,
               ),
@@ -78,28 +54,8 @@ class _HomePageState extends State<HomePage> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Card(
-                elevation: 10,
-                margin: const EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: GNav(
-                  gap: 10,
-                  iconSize: 20,
-                  selectedIndex: _selectedIndex,
-                  tabBackgroundColor: Colors.grey[200],
-                  activeColor: Theme.of(context).primaryColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ),
-                  onTabChange: (index) {
-                    _selectedIndex = index;
-                    _pageController.jumpToPage(_selectedIndex);
-                  },
-                  tabs: _tabs,
-                ),
+              child: BottomNavigationWidget(
+                indexNotifier: _indexNotifier,
               ),
             ),
           ],
