@@ -14,6 +14,19 @@ class CategoriesWidget extends StatefulWidget {
 }
 
 class _CategoriesWidgetState extends State<CategoriesWidget> {
+  Category _selectedCategory;
+
+  void _selectCategory(Category category) {
+    setState(() {
+      if (_selectedCategory?.id == category?.id)
+        _selectedCategory = null;
+      else
+        _selectedCategory = category;
+    });
+
+    widget.onSelectCategory?.call(_selectedCategory);
+  }
+
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<ArticlesBloc, ArticlesState>(
@@ -45,9 +58,26 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                     itemCount: result.data.length,
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    itemBuilder: (_, index) => Chip(
-                      label: Text(result.data[index].name),
-                    ),
+                    itemBuilder: (_, index) {
+                      bool isSelected =
+                          _selectedCategory?.id == result.data[index].id;
+                      return InkWell(
+                        onTap: () {
+                          _selectCategory(result.data[index]);
+                        },
+                        child: Chip(
+                          backgroundColor: isSelected
+                              ? Theme.of(context).primaryColor
+                              : null,
+                          label: Text(
+                            result.data[index].name,
+                            style: TextStyle(
+                              color: isSelected ? Colors.white : null,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     separatorBuilder: (_, __) => const SizedBox(
                       width: 10,
                     ),

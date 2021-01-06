@@ -78,7 +78,12 @@ class _ArticlesPageState extends State<ArticlesPage>
                     padding: const EdgeInsets.only(bottom: 10),
                     sliver: SliverToBoxAdapter(
                       child: CategoriesWidget(
-                        onSelectCategory: (category) {},
+                        onSelectCategory: (category) {
+                          if (category != null)
+                            _bloc.getArticlesByCategory(category.id);
+                          else
+                            _bloc.getArticles();
+                        },
                       ),
                     ),
                   ),
