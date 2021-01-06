@@ -10,7 +10,8 @@ class ArticlesPage extends StatefulWidget {
   _ArticlesPageState createState() => _ArticlesPageState();
 }
 
-class _ArticlesPageState extends State<ArticlesPage> {
+class _ArticlesPageState extends State<ArticlesPage>
+    with AutomaticKeepAliveClientMixin {
   final _bloc = getIt<ArticlesBloc>();
 
   void _loadData() {
@@ -74,18 +75,24 @@ class _ArticlesPageState extends State<ArticlesPage> {
                     ),
                   ),
                   SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 50),
+                    padding: const EdgeInsets.only(bottom: 10),
                     sliver: SliverToBoxAdapter(
                       child: CategoriesWidget(
                         onSelectCategory: (category) {},
                       ),
                     ),
                   ),
-                  ArticlesWidget(),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    sliver: ArticlesWidget(),
+                  ),
                 ],
               ),
             ),
           ),
         ),
       );
+
+  @override
+  bool get wantKeepAlive => true;
 }

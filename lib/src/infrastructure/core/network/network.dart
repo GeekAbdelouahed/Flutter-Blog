@@ -24,6 +24,11 @@ abstract class AppNetworkClient {
 
   @GET('/articles')
   Future<ApiResponse<List<Article>>> getArticles();
+
+  @GET('/articles/byCategory/{categoryId}')
+  Future<ApiResponse<List<Article>>> getArticlesByCategory(
+    @Path('categoryId') String categoryId,
+  );
 }
 
 class AppNetwork {

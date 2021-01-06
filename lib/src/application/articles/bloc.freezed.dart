@@ -18,14 +18,10 @@ class _$ArticlesStateTearOff {
       {@required
           Option<Either<ApiError, ApiResponse<List<Category>>>> categoriesState,
       @required
-          Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState,
-      @required
-          Option<Either<ApiError, ApiResponse<List<Article>>>>
-              articlesByCategoryState}) {
+          Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState}) {
     return _ArticlesState(
       categoriesState: categoriesState,
       articlesState: articlesState,
-      articlesByCategoryState: articlesByCategoryState,
     );
   }
 }
@@ -38,8 +34,6 @@ const $ArticlesState = _$ArticlesStateTearOff();
 mixin _$ArticlesState {
   Option<Either<ApiError, ApiResponse<List<Category>>>> get categoriesState;
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
-  Option<Either<ApiError, ApiResponse<List<Article>>>>
-      get articlesByCategoryState;
 
   $ArticlesStateCopyWith<ArticlesState> get copyWith;
 }
@@ -51,9 +45,7 @@ abstract class $ArticlesStateCopyWith<$Res> {
       _$ArticlesStateCopyWithImpl<$Res>;
   $Res call(
       {Option<Either<ApiError, ApiResponse<List<Category>>>> categoriesState,
-      Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState,
-      Option<Either<ApiError, ApiResponse<List<Article>>>>
-          articlesByCategoryState});
+      Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState});
 }
 
 /// @nodoc
@@ -69,7 +61,6 @@ class _$ArticlesStateCopyWithImpl<$Res>
   $Res call({
     Object categoriesState = freezed,
     Object articlesState = freezed,
-    Object articlesByCategoryState = freezed,
   }) {
     return _then(_value.copyWith(
       categoriesState: categoriesState == freezed
@@ -79,10 +70,6 @@ class _$ArticlesStateCopyWithImpl<$Res>
       articlesState: articlesState == freezed
           ? _value.articlesState
           : articlesState
-              as Option<Either<ApiError, ApiResponse<List<Article>>>>,
-      articlesByCategoryState: articlesByCategoryState == freezed
-          ? _value.articlesByCategoryState
-          : articlesByCategoryState
               as Option<Either<ApiError, ApiResponse<List<Article>>>>,
     ));
   }
@@ -97,9 +84,7 @@ abstract class _$ArticlesStateCopyWith<$Res>
   @override
   $Res call(
       {Option<Either<ApiError, ApiResponse<List<Category>>>> categoriesState,
-      Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState,
-      Option<Either<ApiError, ApiResponse<List<Article>>>>
-          articlesByCategoryState});
+      Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState});
 }
 
 /// @nodoc
@@ -117,7 +102,6 @@ class __$ArticlesStateCopyWithImpl<$Res>
   $Res call({
     Object categoriesState = freezed,
     Object articlesState = freezed,
-    Object articlesByCategoryState = freezed,
   }) {
     return _then(_ArticlesState(
       categoriesState: categoriesState == freezed
@@ -128,10 +112,6 @@ class __$ArticlesStateCopyWithImpl<$Res>
           ? _value.articlesState
           : articlesState
               as Option<Either<ApiError, ApiResponse<List<Article>>>>,
-      articlesByCategoryState: articlesByCategoryState == freezed
-          ? _value.articlesByCategoryState
-          : articlesByCategoryState
-              as Option<Either<ApiError, ApiResponse<List<Article>>>>,
     ));
   }
 }
@@ -139,24 +119,18 @@ class __$ArticlesStateCopyWithImpl<$Res>
 /// @nodoc
 class _$_ArticlesState implements _ArticlesState {
   const _$_ArticlesState(
-      {@required this.categoriesState,
-      @required this.articlesState,
-      @required this.articlesByCategoryState})
+      {@required this.categoriesState, @required this.articlesState})
       : assert(categoriesState != null),
-        assert(articlesState != null),
-        assert(articlesByCategoryState != null);
+        assert(articlesState != null);
 
   @override
   final Option<Either<ApiError, ApiResponse<List<Category>>>> categoriesState;
   @override
   final Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState;
-  @override
-  final Option<Either<ApiError, ApiResponse<List<Article>>>>
-      articlesByCategoryState;
 
   @override
   String toString() {
-    return 'ArticlesState(categoriesState: $categoriesState, articlesState: $articlesState, articlesByCategoryState: $articlesByCategoryState)';
+    return 'ArticlesState(categoriesState: $categoriesState, articlesState: $articlesState)';
   }
 
   @override
@@ -168,19 +142,14 @@ class _$_ArticlesState implements _ArticlesState {
                     .equals(other.categoriesState, categoriesState)) &&
             (identical(other.articlesState, articlesState) ||
                 const DeepCollectionEquality()
-                    .equals(other.articlesState, articlesState)) &&
-            (identical(
-                    other.articlesByCategoryState, articlesByCategoryState) ||
-                const DeepCollectionEquality().equals(
-                    other.articlesByCategoryState, articlesByCategoryState)));
+                    .equals(other.articlesState, articlesState)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(categoriesState) ^
-      const DeepCollectionEquality().hash(articlesState) ^
-      const DeepCollectionEquality().hash(articlesByCategoryState);
+      const DeepCollectionEquality().hash(articlesState);
 
   @override
   _$ArticlesStateCopyWith<_ArticlesState> get copyWith =>
@@ -192,18 +161,13 @@ abstract class _ArticlesState implements ArticlesState {
       {@required
           Option<Either<ApiError, ApiResponse<List<Category>>>> categoriesState,
       @required
-          Option<Either<ApiError, ApiResponse<List<Article>>>> articlesState,
-      @required
           Option<Either<ApiError, ApiResponse<List<Article>>>>
-              articlesByCategoryState}) = _$_ArticlesState;
+              articlesState}) = _$_ArticlesState;
 
   @override
   Option<Either<ApiError, ApiResponse<List<Category>>>> get categoriesState;
   @override
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
-  @override
-  Option<Either<ApiError, ApiResponse<List<Article>>>>
-      get articlesByCategoryState;
   @override
   _$ArticlesStateCopyWith<_ArticlesState> get copyWith;
 }

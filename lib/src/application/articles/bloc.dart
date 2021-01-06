@@ -32,8 +32,8 @@ class ArticlesBloc extends Cubit<ArticlesState> {
   }
 
   void getArticlesByCategory(String categoryId) async {
-    emit(state.copyWith(articlesByCategoryState: none()));
+    emit(state.copyWith(articlesState: none()));
     final result = await _iArticlesFacade.getArticlesByCategory(categoryId);
-    emit(state.copyWith(articlesByCategoryState: optionOf(result)));
+    emit(state.copyWith(articlesState: optionOf(result)));
   }
 }

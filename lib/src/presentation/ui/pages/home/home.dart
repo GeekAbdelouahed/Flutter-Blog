@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   List<GButton> _tabs = [
     GButton(
-      text: 'Article',
+      text: 'Articles',
       icon: Icons.article_outlined,
       borderRadius: BorderRadius.circular(12.5),
       margin: const EdgeInsets.all(10),
