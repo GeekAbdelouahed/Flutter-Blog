@@ -31,7 +31,10 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
   Widget build(BuildContext context) =>
       BlocBuilder<ArticlesBloc, ArticlesState>(
         builder: (context, state) => state.categoriesState.fold(
-          () => Center(child: CircularProgressIndicator()),
+          () {
+            _selectedCategory = null;
+            return Center(child: CircularProgressIndicator());
+          },
           (either) => either.fold(
             (apiError) => Text(apiError.message ?? 'Unknown Error!'),
             (result) => Column(
