@@ -17,7 +17,7 @@ class _AppNetworkClient implements AppNetworkClient {
   String baseUrl;
 
   @override
-  Future<ApiResponse> signIn(user) async {
+  Future<ApiResponse<dynamic>> signIn(user) async {
     ArgumentError.checkNotNull(user, 'user');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -32,12 +32,15 @@ class _AppNetworkClient implements AppNetworkClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ApiResponse.fromJson(_result.data);
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data,
+      (json) => json as dynamic,
+    );
     return value;
   }
 
   @override
-  Future<ApiResponse> signUp(user) async {
+  Future<ApiResponse<dynamic>> signUp(user) async {
     ArgumentError.checkNotNull(user, 'user');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -52,7 +55,52 @@ class _AppNetworkClient implements AppNetworkClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ApiResponse.fromJson(_result.data);
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<List<Category>>> getCategories() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/categories',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<List<Category>>.fromJson(
+        _result.data,
+        (json) => (json as List<dynamic>)
+            .map<Category>((i) => Category.fromJson(i as Map<String, dynamic>))
+            .toList());
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<List<Article>>> getArticles() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/articles',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<List<Article>>.fromJson(
+        _result.data,
+        (json) => (json as List<dynamic>)
+            .map<Article>((i) => Article.fromJson(i as Map<String, dynamic>))
+            .toList());
     return value;
   }
 }
