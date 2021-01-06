@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Blog',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         onGenerateRoute: AppRoutesGenerator.generateRoute,
