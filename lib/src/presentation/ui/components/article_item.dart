@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../domain/entities/article/article.dart';
-import '../../../../routes/routes.dart';
+import '../../../domain/entities/article/article.dart';
+import '../../routes/routes.dart';
 
 class ArticleItemWidget extends StatelessWidget {
   final Article article;

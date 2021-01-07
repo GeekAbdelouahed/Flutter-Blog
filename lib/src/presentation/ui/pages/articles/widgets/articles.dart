@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../application/articles/bloc.dart';
-import 'article_item.dart';
+import '../../../components/article_item.dart';
 
 class ArticlesWidget extends StatefulWidget {
   @override

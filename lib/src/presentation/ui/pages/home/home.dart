@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../articles/articles.dart';
+import '../search/search.dart';
 import 'widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,9 +16,7 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _screens = [
     ArticlesPage(),
-    Container(
-      color: Colors.red,
-    ),
+    SearchPage(),
     Container(
       color: Colors.yellow,
     ),
