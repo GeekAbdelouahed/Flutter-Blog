@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../application/articles/bloc.dart';
 import '../../../../../domain/entities/category/category.dart';
+import '../../../components/loading.dart';
 
 class CategoriesWidget extends StatefulWidget {
   final Function(Category) onSelectCategory;
@@ -33,7 +34,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
         builder: (context, state) => state.categoriesState.fold(
           () {
             _selectedCategory = null;
-            return Center(child: CircularProgressIndicator());
+            return LoadingWidget();
           },
           (either) => either.fold(
             (apiError) => Text(apiError.message ?? 'Unknown Error!'),

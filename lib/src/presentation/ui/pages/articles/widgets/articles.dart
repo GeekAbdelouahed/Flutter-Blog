@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../application/articles/bloc.dart';
 import '../../../components/article_item.dart';
+import '../../../components/loading.dart';
 
 class ArticlesWidget extends StatefulWidget {
   @override
@@ -15,9 +16,7 @@ class _ArticlesWidgetState extends State<ArticlesWidget> {
       BlocBuilder<ArticlesBloc, ArticlesState>(
         builder: (context, state) => state.articlesState.fold(
           () => SliverToBoxAdapter(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
+            child: LoadingWidget(),
           ),
           (either) => either.fold(
             (apiError) => SliverToBoxAdapter(

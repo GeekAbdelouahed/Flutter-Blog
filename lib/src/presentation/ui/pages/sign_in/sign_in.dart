@@ -6,7 +6,7 @@ import '../../../../domain/entities/user/user.dart';
 import '../../../../injection.dart';
 import '../../../utils/extensions.dart';
 import '../../components/buttons/rounded_button.dart';
-import '../../components/text_field/rounded_outline_text_field.dart';
+import '../../components/text_fields/rounded_outline_text_field.dart';
 
 class SignInPage extends StatefulWidget {
   @override

@@ -25,6 +25,11 @@ abstract class AppNetworkClient {
   @GET('/articles')
   Future<ApiResponse<List<Article>>> getArticles();
 
+  @GET('/articles')
+  Future<ApiResponse<List<Article>>> searchArticles(
+    @Query('query') String query,
+  );
+
   @GET('/articles/byCategory/{categoryId}')
   Future<ApiResponse<List<Article>>> getArticlesByCategory(
     @Path('categoryId') String categoryId,

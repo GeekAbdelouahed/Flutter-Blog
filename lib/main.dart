@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,6 +14,10 @@ void main() async {
   configureInjection(Environment.prod);
 
   await GetIt.I.isReady<AppPreferences>();
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: Colors.indigo),
+  );
 
   runApp(MyApp());
 }

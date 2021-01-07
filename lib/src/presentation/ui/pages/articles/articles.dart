@@ -28,75 +28,78 @@ class _ArticlesPageState extends State<ArticlesPage>
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: () {
-              _loadData();
-              return Future.value();
-            },
-            child: BlocProvider<ArticlesBloc>(
-              create: (_) => _bloc,
-              child: CustomScrollView(
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                      left: 20,
-                      right: 20,
-                      bottom: 50,
-                    ),
-                    sliver: SliverToBoxAdapter(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Good Morning!',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () {
+            _loadData();
+            return Future.value();
+          },
+          child: BlocProvider<ArticlesBloc>(
+            create: (_) => _bloc,
+            child: CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                    left: 20,
+                    right: 20,
+                    bottom: 50,
+                  ),
+                  sliver: SliverToBoxAdapter(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Good Morning!',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey[200],
+                            child: IconButton(
+                              tooltip: 'Add Article',
+                              onPressed: () {},
+                              icon: Icon(Icons.post_add),
                             ),
                           ),
-                          SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: CircleAvatar(
-                              backgroundColor: Colors.grey[200],
-                              child: IconButton(
-                                tooltip: 'Add Article',
-                                onPressed: () {},
-                                icon: Icon(Icons.post_add),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    sliver: SliverToBoxAdapter(
-                      child: CategoriesWidget(
-                        onSelectCategory: (category) {
-                          if (category != null)
-                            _bloc.getArticlesByCategory(category.id);
-                          else
-                            _bloc.getArticles();
-                        },
-                      ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  sliver: SliverToBoxAdapter(
+                    child: CategoriesWidget(
+                      onSelectCategory: (category) {
+                        if (category != null)
+                          _bloc.getArticlesByCategory(category.id);
+                        else
+                          _bloc.getArticles();
+                      },
                     ),
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 100),
-                    sliver: ArticlesWidget(),
-                  ),
-                ],
-              ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 100),
+                  sliver: ArticlesWidget(),
+                ),
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 
   @override
   bool get wantKeepAlive => true;
