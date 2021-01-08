@@ -14,13 +14,13 @@ part 'state.dart';
 
 @injectable
 class SignInBloc extends Cubit<SignInState> {
-  final ISignInFacade _iSignInFacade;
+  final ISignInFacade _signInFacade;
 
-  SignInBloc(this._iSignInFacade) : super(SignInState.initial());
+  SignInBloc(this._signInFacade) : super(SignInState.initial());
 
   void signIn(User user) async {
     emit(SignInState(signInState: none()));
-    final result = await _iSignInFacade.signIn(user: user);
+    final result = await _signInFacade.signIn(user: user);
     emit(SignInState(signInState: optionOf(result)));
   }
 }

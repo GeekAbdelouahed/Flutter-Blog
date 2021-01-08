@@ -15,25 +15,25 @@ part 'state.dart';
 
 @injectable
 class ArticlesBloc extends Cubit<ArticlesState> {
-  final IArticlesFacade _iArticlesFacade;
+  final IArticlesFacade _articlesFacade;
 
-  ArticlesBloc(this._iArticlesFacade) : super(ArticlesState.initial());
+  ArticlesBloc(this._articlesFacade) : super(ArticlesState.initial());
 
   void getCategories() async {
     emit(state.copyWith(categoriesState: none()));
-    final result = await _iArticlesFacade.getCategories();
+    final result = await _articlesFacade.getCategories();
     emit(state.copyWith(categoriesState: optionOf(result)));
   }
 
   void getArticles() async {
     emit(state.copyWith(articlesState: none()));
-    final result = await _iArticlesFacade.getArticles();
+    final result = await _articlesFacade.getArticles();
     emit(state.copyWith(articlesState: optionOf(result)));
   }
 
   void getArticlesByCategory(String categoryId) async {
     emit(state.copyWith(articlesState: none()));
-    final result = await _iArticlesFacade.getArticlesByCategory(categoryId);
+    final result = await _articlesFacade.getArticlesByCategory(categoryId);
     emit(state.copyWith(articlesState: optionOf(result)));
   }
 }

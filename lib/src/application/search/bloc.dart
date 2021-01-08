@@ -14,16 +14,16 @@ part 'state.dart';
 
 @injectable
 class SearchBloc extends Cubit<SearchState> {
-  final ISearchFacade _iSearchFacade;
+  final ISearchFacade _searchFacade;
 
-  SearchBloc(this._iSearchFacade) : super(SearchState.initial());
+  SearchBloc(this._searchFacade) : super(SearchState.initial());
 
   void searchArticles(String query) async {
     emit(state.copyWith(
       searchState: none(),
       isSearching: true,
     ));
-    final result = await _iSearchFacade.searchArticles(query);
+    final result = await _searchFacade.searchArticles(query);
     emit(state.copyWith(
       searchState: optionOf(result),
       isSearching: false,

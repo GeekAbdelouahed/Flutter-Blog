@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../articles/articles.dart';
+import '../favorites/favorites.dart';
 import '../search/search.dart';
 import 'widgets/widgets.dart';
 
@@ -9,7 +10,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   final _controller = PageController();
 
   final _indexNotifier = ValueNotifier<int>(0);
@@ -17,9 +19,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> _screens = [
     ArticlesPage(),
     SearchPage(),
-    Container(
-      color: Colors.yellow,
-    ),
+    FavoritesPage(),
     Container(
       color: Colors.green,
     ),
@@ -60,4 +60,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       );
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -148,4 +148,27 @@ class _AppNetworkClient implements AppNetworkClient {
             .toList());
     return value;
   }
+
+  @override
+  Future<ApiResponse<List<Favorite>>> getFavorites(userId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/favorites/$userId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<List<Favorite>>.fromJson(
+        _result.data,
+        (json) => (json as List<dynamic>)
+            .map<Favorite>((i) => Favorite.fromJson(i as Map<String, dynamic>))
+            .toList());
+    return value;
+  }
 }
