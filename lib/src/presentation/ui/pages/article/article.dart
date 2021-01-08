@@ -1,0 +1,108 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../../../domain/entities/article/article.dart';
+import '../../../routes/routes.dart';
+
+class ArticleDetails extends StatefulWidget {
+  final Article article;
+
+  const ArticleDetails({Key key, @required this.article}) : super(key: key);
+
+  @override
+  _ArticleDetailsState createState() => _ArticleDetailsState();
+}
+
+class _ArticleDetailsState extends State<ArticleDetails> {
+  final _pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              expandedHeight: MediaQuery.of(context).size.width / 1.5,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: widget.article.images.length,
+                        itemBuilder: (_, index) => CachedNetworkImage(
+                          imageUrl:
+                              '${AppRoutes.host}files/articles/${widget.article.id}/${widget.article.images[index]}',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: SmoothPageIndicator(
+                          controller: _pageController,
+                          count: widget.article.images.length,
+                          effect: WormEffect(
+                            dotHeight: 10,
+                            dotWidth: 10,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 30,
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.article.title,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        InkWell(
+                          onTap: () {},
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey[200],
+                            child: Icon(
+                              Icons.favorite_border,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      widget.article.content,
+                      style: TextStyle(
+                        color: Colors.grey[800],
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+}

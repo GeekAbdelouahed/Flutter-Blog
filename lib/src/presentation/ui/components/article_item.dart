@@ -19,7 +19,12 @@ class ArticleItemWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              AppRoutes.articleDetails,
+              arguments: article,
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
