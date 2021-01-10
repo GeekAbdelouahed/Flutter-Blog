@@ -8,10 +8,16 @@ part 'favorite.g.dart';
 class Favorite {
   @JsonKey(name: '_id')
   final String id;
+  @JsonKey(name: 'article_id')
+  final String articleId;
+  @JsonKey(name: 'user_id')
+  final String userId;
   final Article article;
 
   Favorite({
     this.id,
+    this.articleId,
+    this.userId,
     this.article,
   });
 

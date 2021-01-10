@@ -9,4 +9,14 @@ abstract class IArticleFacade {
     String articleId, {
     String userId,
   });
+
+  Future<Either<ApiError, ApiResponse>> addFavorite(
+    String articleId,
+    String userId,
+  );
+
+  Future<Either<ApiError, ApiResponse>> removeFavorite(
+    String articleId,
+    String userId,
+  );
 }

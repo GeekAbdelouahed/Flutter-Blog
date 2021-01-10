@@ -13,14 +13,22 @@ part 'bloc.freezed.dart';
 part 'state.dart';
 
 @injectable
-class ArticlesBloc extends Cubit<ArticleState> {
+class ArticleBloc extends Cubit<ArticleState> {
   final IArticleFacade _articleFacade;
 
-  ArticlesBloc(this._articleFacade) : super(ArticleState.initial());
+  ArticleBloc(this._articleFacade) : super(ArticleState.initial());
 
   void getArticleDetails(String id, {String userId}) async {
     emit(state.copyWith(articleState: none()));
     final result = await _articleFacade.getArticleDetails(id, userId: userId);
     emit(state.copyWith(articleState: optionOf(result)));
+  }
+
+  void addFavorite(String articleId, String userId) async {
+    await _articleFacade.addFavorite(articleId, userId);
+  }
+
+  void removeFavorite(String articleId, String userId) async {
+    await _articleFacade.removeFavorite(articleId, userId);
   }
 }

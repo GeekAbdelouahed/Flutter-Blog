@@ -47,6 +47,16 @@ abstract class AppNetworkClient {
   Future<ApiResponse<List<Favorite>>> getFavorites(
     @Path('userId') String userId,
   );
+
+  @POST('/favorites')
+  Future<ApiResponse> addFavorite(
+    @Body() Favorite favorite,
+  );
+
+  @DELETE('/favorites')
+  Future<ApiResponse> removeFavorite(
+    @Body() Favorite favorite,
+  );
 }
 
 class AppNetwork {

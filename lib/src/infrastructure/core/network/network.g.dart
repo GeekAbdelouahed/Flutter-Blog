@@ -193,4 +193,50 @@ class _AppNetworkClient implements AppNetworkClient {
             .toList());
     return value;
   }
+
+  @override
+  Future<ApiResponse<dynamic>> addFavorite(favorite) async {
+    ArgumentError.checkNotNull(favorite, 'favorite');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(favorite?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/favorites',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<ApiResponse<dynamic>> removeFavorite(favorite) async {
+    ArgumentError.checkNotNull(favorite, 'favorite');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(favorite?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/favorites',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'DELETE',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
 }
