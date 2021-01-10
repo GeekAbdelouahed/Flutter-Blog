@@ -27,7 +27,7 @@ abstract class AppNetworkClient {
   @GET('/articles')
   Future<ApiResponse<List<Article>>> getArticles();
 
-  @GET('/articles')
+  @GET('/articles/{id}')
   Future<ApiResponse<Article>> getArticlesById(
     @Path('id') String id, {
     @Query('userId') String userId,

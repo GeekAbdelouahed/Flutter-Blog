@@ -111,7 +111,7 @@ class _AppNetworkClient implements AppNetworkClient {
     final queryParameters = <String, dynamic>{r'userId': userId};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('/articles',
+    final _result = await _dio.request<Map<String, dynamic>>('/articles/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
