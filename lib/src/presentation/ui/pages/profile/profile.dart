@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../application/articles/bloc.dart';
+import '../../../../application/profile/bloc.dart';
 import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
 import '../../components/my_article_item.dart';
@@ -14,7 +14,8 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage>
     with AutomaticKeepAliveClientMixin {
   final _preferences = getIt<AppPreferences>();
-  final _bloc = getIt<ArticlesBloc>()..getArticles();
+  final _bloc = getIt<ProfileBloc>()
+    ..getArticlesByUser('5fe8ae0875f067aac82700fa');
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage>
                   ),
                 ),
               ),
-              BlocBuilder<ArticlesBloc, ArticlesState>(
+              BlocBuilder<ProfileBloc, ProfileState>(
                 cubit: _bloc,
                 builder: (_, state) => state.articlesState.fold(
                   () => SliverToBoxAdapter(),

@@ -43,6 +43,11 @@ abstract class AppNetworkClient {
     @Path('categoryId') String categoryId,
   );
 
+  @GET('/articles/byUser/{userId}')
+  Future<ApiResponse<List<Article>>> getArticlesByUser(
+    @Path('userId') String userId,
+  );
+
   @GET('/favorites/{userId}')
   Future<ApiResponse<List<Favorite>>> getFavorites(
     @Path('userId') String userId,
