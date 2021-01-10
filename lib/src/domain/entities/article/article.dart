@@ -15,6 +15,7 @@ class Article {
   @JsonKey(name: 'created_at')
   final String createdAt;
   final List<String> images;
+  final bool isFavorite;
 
   Article({
     this.id,
@@ -24,6 +25,7 @@ class Article {
     this.categoryId,
     this.createdAt,
     this.images,
+    this.isFavorite,
   });
 
   factory Article.fromJson(Map<String, dynamic> json) =>

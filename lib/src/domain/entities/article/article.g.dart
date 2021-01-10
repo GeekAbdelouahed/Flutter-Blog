@@ -15,6 +15,7 @@ Article _$ArticleFromJson(Map<String, dynamic> json) {
     categoryId: json['category_id'] as String,
     createdAt: json['created_at'] as String,
     images: (json['images'] as List)?.map((e) => e as String)?.toList(),
+    isFavorite: json['isFavorite'] as bool,
   );
 }
 
@@ -26,4 +27,5 @@ Map<String, dynamic> _$ArticleToJson(Article instance) => <String, dynamic>{
       'category_id': instance.categoryId,
       'created_at': instance.createdAt,
       'images': instance.images,
+      'isFavorite': instance.isFavorite,
     };
