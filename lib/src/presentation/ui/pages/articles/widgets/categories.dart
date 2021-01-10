@@ -50,7 +50,6 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                   child: Text(
                     'Categories',
                     style: TextStyle(
-                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),

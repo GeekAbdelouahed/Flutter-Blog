@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../articles/articles.dart';
 import '../favorites/favorites.dart';
+import '../profile/profile.dart';
 import '../search/search.dart';
 import 'widgets/widgets.dart';
 
@@ -20,12 +21,7 @@ class _HomePageState extends State<HomePage>
     ArticlesPage(),
     SearchPage(),
     FavoritesPage(),
-    Container(
-      color: Colors.green,
-    ),
-    Container(
-      color: Colors.pink,
-    ),
+    ProfilePage(),
   ];
 
   @override
@@ -37,29 +33,32 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: PageView(
-                controller: _controller,
-                onPageChanged: (index) {
-                  _indexNotifier.value = index;
-                },
-                children: _screens,
-              ),
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: PageView(
+              controller: _controller,
+              onPageChanged: (index) {
+                _indexNotifier.value = index;
+              },
+              children: _screens,
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: BottomNavigationWidget(
-                indexNotifier: _indexNotifier,
-              ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BottomNavigationWidget(
+              indexNotifier: _indexNotifier,
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   bool get wantKeepAlive => true;
