@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../application/sign_up/bloc.dart';
 import '../../../../domain/entities/user/user.dart';
+import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
+import '../../../routes/routes.dart';
 import '../../../utils/extensions.dart';
 import '../../components/buttons/rounded_button.dart';
 import '../../components/text_fields/rounded_outline_text_field.dart';
@@ -16,6 +18,8 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final _bloc = getIt<SignUpBloc>();
 
+  final _preferences = getIt<AppPreferences>();
+
   final _formKey = GlobalKey<FormState>();
 
   final _firstNameController = TextEditingController();
@@ -23,6 +27,15 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  void _saveUserData(User user) async {
+    await _preferences.setString(AppPreferencesKeys.USER_ID, user.id);
+    await _preferences.setString(AppPreferencesKeys.TOKEN, user.token);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.home,
+      ModalRoute.withName(''),
+    );
+  }
 
   void _validForm() {
     bool isFormValid = _formKey.currentState.validate();
@@ -47,8 +60,8 @@ class _SignUpPageState extends State<SignUpPage> {
             (apiError) {
               print(apiError.message);
             },
-            (apiResponse) {
-              print(apiResponse.message);
+            (result) {
+              _saveUserData(result.data);
             },
           ),
         );

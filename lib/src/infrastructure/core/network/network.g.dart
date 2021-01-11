@@ -17,7 +17,7 @@ class _AppNetworkClient implements AppNetworkClient {
   String baseUrl;
 
   @override
-  Future<ApiResponse<dynamic>> signIn(user) async {
+  Future<ApiResponse<User>> signIn(user) async {
     ArgumentError.checkNotNull(user, 'user');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -32,15 +32,15 @@ class _AppNetworkClient implements AppNetworkClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ApiResponse<dynamic>.fromJson(
+    final value = ApiResponse<User>.fromJson(
       _result.data,
-      (json) => json as dynamic,
+      (json) => User.fromJson(json),
     );
     return value;
   }
 
   @override
-  Future<ApiResponse<dynamic>> signUp(user) async {
+  Future<ApiResponse<User>> signUp(user) async {
     ArgumentError.checkNotNull(user, 'user');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -55,9 +55,9 @@ class _AppNetworkClient implements AppNetworkClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = ApiResponse<dynamic>.fromJson(
+    final value = ApiResponse<User>.fromJson(
       _result.data,
-      (json) => json as dynamic,
+      (json) => User.fromJson(json),
     );
     return value;
   }

@@ -6,5 +6,5 @@ import '../entities/api_response/api_response.dart';
 import '../entities/user/user.dart';
 
 abstract class ISignUpFacade {
-  Future<Either<ApiError, ApiResponse>> signUp({@required User user});
+  Future<Either<ApiError, ApiResponse<User>>> signUp({@required User user});
 }

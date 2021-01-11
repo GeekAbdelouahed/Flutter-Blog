@@ -40,6 +40,8 @@ class _ArticleDetailsState extends State<ArticleDetails> {
     });
   }
 
+  bool get _isOwner => _preferences.userId == widget.article.userId;
+
   @override
   void initState() {
     super.initState();
@@ -101,6 +103,13 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                               ],
                             ),
                           ),
+                          actions: [
+                            if (_preferences.isLoggedIn && _isOwner)
+                              IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.settings),
+                              )
+                          ],
                         ),
                         SliverFillRemaining(
                           child: Padding(

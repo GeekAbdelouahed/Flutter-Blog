@@ -16,10 +16,10 @@ abstract class AppNetworkClient {
   factory AppNetworkClient(Dio dio, {String baseUrl}) = _AppNetworkClient;
 
   @POST('/auth/login')
-  Future<ApiResponse> signIn(@Body() User user);
+  Future<ApiResponse<User>> signIn(@Body() User user);
 
   @POST('/auth/register')
-  Future<ApiResponse> signUp(@Body() User user);
+  Future<ApiResponse<User>> signUp(@Body() User user);
 
   @GET('/categories')
   Future<ApiResponse<List<Category>>> getCategories();

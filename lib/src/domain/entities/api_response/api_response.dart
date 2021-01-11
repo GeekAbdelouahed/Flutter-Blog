@@ -6,13 +6,11 @@ part 'api_response.g.dart';
 class ApiResponse<T> {
   final bool status;
   final String message;
-  final String token;
   final T data;
 
   ApiResponse({
     this.status,
     this.message,
-    this.token,
     this.data,
   });
 

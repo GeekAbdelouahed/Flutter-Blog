@@ -15,7 +15,7 @@ class _$SignInStateTearOff {
 
 // ignore: unused_element
   _SignInState call(
-      {@required Option<Either<ApiError, ApiResponse>> signInState}) {
+      {@required Option<Either<ApiError, ApiResponse<User>>> signInState}) {
     return _SignInState(
       signInState: signInState,
     );
@@ -28,7 +28,7 @@ const $SignInState = _$SignInStateTearOff();
 
 /// @nodoc
 mixin _$SignInState {
-  Option<Either<ApiError, ApiResponse>> get signInState;
+  Option<Either<ApiError, ApiResponse<User>>> get signInState;
 
   $SignInStateCopyWith<SignInState> get copyWith;
 }
@@ -38,7 +38,7 @@ abstract class $SignInStateCopyWith<$Res> {
   factory $SignInStateCopyWith(
           SignInState value, $Res Function(SignInState) then) =
       _$SignInStateCopyWithImpl<$Res>;
-  $Res call({Option<Either<ApiError, ApiResponse>> signInState});
+  $Res call({Option<Either<ApiError, ApiResponse<User>>> signInState});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$SignInStateCopyWithImpl<$Res> implements $SignInStateCopyWith<$Res> {
     return _then(_value.copyWith(
       signInState: signInState == freezed
           ? _value.signInState
-          : signInState as Option<Either<ApiError, ApiResponse>>,
+          : signInState as Option<Either<ApiError, ApiResponse<User>>>,
     ));
   }
 }
@@ -68,7 +68,7 @@ abstract class _$SignInStateCopyWith<$Res>
           _SignInState value, $Res Function(_SignInState) then) =
       __$SignInStateCopyWithImpl<$Res>;
   @override
-  $Res call({Option<Either<ApiError, ApiResponse>> signInState});
+  $Res call({Option<Either<ApiError, ApiResponse<User>>> signInState});
 }
 
 /// @nodoc
@@ -88,7 +88,7 @@ class __$SignInStateCopyWithImpl<$Res> extends _$SignInStateCopyWithImpl<$Res>
     return _then(_SignInState(
       signInState: signInState == freezed
           ? _value.signInState
-          : signInState as Option<Either<ApiError, ApiResponse>>,
+          : signInState as Option<Either<ApiError, ApiResponse<User>>>,
     ));
   }
 }
@@ -99,7 +99,7 @@ class _$_SignInState implements _SignInState {
       : assert(signInState != null);
 
   @override
-  final Option<Either<ApiError, ApiResponse>> signInState;
+  final Option<Either<ApiError, ApiResponse<User>>> signInState;
 
   @override
   String toString() {
@@ -126,11 +126,11 @@ class _$_SignInState implements _SignInState {
 
 abstract class _SignInState implements SignInState {
   const factory _SignInState(
-          {@required Option<Either<ApiError, ApiResponse>> signInState}) =
+          {@required Option<Either<ApiError, ApiResponse<User>>> signInState}) =
       _$_SignInState;
 
   @override
-  Option<Either<ApiError, ApiResponse>> get signInState;
+  Option<Either<ApiError, ApiResponse<User>>> get signInState;
   @override
   _$SignInStateCopyWith<_SignInState> get copyWith;
 }

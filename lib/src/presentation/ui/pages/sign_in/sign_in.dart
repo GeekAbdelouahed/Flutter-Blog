@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../application/sign_in/bloc.dart';
 import '../../../../domain/entities/user/user.dart';
+import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
+import '../../../routes/routes.dart';
 import '../../../utils/extensions.dart';
 import '../../components/buttons/rounded_button.dart';
 import '../../components/text_fields/rounded_outline_text_field.dart';
@@ -16,10 +18,21 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   final _bloc = getIt<SignInBloc>();
 
+  final _preferences = getIt<AppPreferences>();
+
   final _formKey = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  void _saveUserData(User user) async {
+    await _preferences.setString(AppPreferencesKeys.USER_ID, user.id);
+    await _preferences.setString(AppPreferencesKeys.TOKEN, user.token);
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.home,
+      ModalRoute.withName(''),
+    );
+  }
 
   void _validForm() {
     bool isFormValid = _formKey.currentState.validate();
@@ -42,8 +55,8 @@ class _SignInPageState extends State<SignInPage> {
             (apiError) {
               print(apiError.message);
             },
-            (apiResponse) {
-              print(apiResponse.message);
+            (result) {
+              _saveUserData(result.data);
             },
           ),
         );
@@ -132,7 +145,6 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
-
           ],
         ),
       );

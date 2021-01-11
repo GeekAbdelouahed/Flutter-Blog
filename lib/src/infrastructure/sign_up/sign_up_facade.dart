@@ -11,7 +11,7 @@ import '../core/network/network.dart';
 @LazySingleton(as: ISignUpFacade)
 class SignUpFacade implements ISignUpFacade {
   @override
-  Future<Either<ApiError, ApiResponse>> signUp({User user}) async {
+  Future<Either<ApiError, ApiResponse<User>>> signUp({User user}) async {
     try {
       final apiResponse = await getIt<AppNetworkClient>().signUp(user);
       if (apiResponse.status) {
