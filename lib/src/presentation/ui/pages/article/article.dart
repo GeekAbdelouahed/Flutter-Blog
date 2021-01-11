@@ -23,8 +23,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
   final _bloc = getIt<ArticleBloc>();
   final _preferences = getIt<AppPreferences>();
 
-  // TODO  dynamic user id
-  final _userId = '5fef0bef4f9a58ad1cb3f0f5';
+  String _userId;
 
   final _pageController = PageController();
 
@@ -45,6 +44,8 @@ class _ArticleDetailsState extends State<ArticleDetails> {
   @override
   void initState() {
     super.initState();
+    _userId = _preferences.userId;
+
     _bloc.getArticleDetails(widget.article.id, userId: _userId);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/favorites/bloc.dart';
+import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
 import '../../components/article_item.dart';
 import '../../components/loading.dart';
@@ -14,15 +15,20 @@ class FavoritesPage extends StatefulWidget {
 class _FavoritesPageState extends State<FavoritesPage> {
   final _bloc = getIt<FavoritesBloc>();
 
+  final _preferences = getIt<AppPreferences>();
+
+  String _userId;
+
   Future<void> _loadData() async {
-    // TODO add dynamic userId
-    _bloc.getFavorites('5fef0bef4f9a58ad1cb3f0f5');
-    return;
+    _bloc.getFavorites(_userId);
+    return Future.value();
   }
 
   @override
   void initState() {
     super.initState();
+    _userId = _preferences.userId;
+
     _loadData();
   }
 

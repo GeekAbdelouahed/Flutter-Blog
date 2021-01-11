@@ -14,11 +14,18 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage>
     with AutomaticKeepAliveClientMixin {
+  final _bloc = getIt<ProfileBloc>();
+
   final _preferences = getIt<AppPreferences>();
 
-  // TODO dynamic user id
-  final _bloc = getIt<ProfileBloc>()
-    ..getArticlesByUser('5ff38ea37bf640cc25f29d6d');
+  String _userId;
+
+  @override
+  void initState() {
+    super.initState();
+    _userId = _preferences.userId;
+    _bloc.getArticlesByUser(_userId);
+  }
 
   @override
   Widget build(BuildContext context) {
