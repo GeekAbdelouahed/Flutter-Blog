@@ -123,19 +123,22 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(width: 10),
-                                    InkWell(
-                                      onTap: _addRemoveFavorite,
-                                      child: CircleAvatar(
-                                        backgroundColor: Colors.grey[200],
-                                        child: Icon(
-                                          _isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          color: Theme.of(context).accentColor,
+                                    if (_preferences.isLoggedIn) ...{
+                                      const SizedBox(width: 10),
+                                      InkWell(
+                                        onTap: _addRemoveFavorite,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.grey[200],
+                                          child: Icon(
+                                            _isFavorite
+                                                ? Icons.favorite
+                                                : Icons.favorite_border,
+                                            color:
+                                                Theme.of(context).accentColor,
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                    },
                                   ],
                                 ),
                                 const SizedBox(height: 20),
