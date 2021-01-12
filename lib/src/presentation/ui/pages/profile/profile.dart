@@ -4,6 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../application/profile/bloc.dart';
 import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
+import '../../../routes/routes.dart';
+import '../../../utils/extensions.dart';
+import '../../components/buttons/rounded_button.dart';
+import '../../components/dialogs/question.dart';
+import '../../components/dialogs/waiting.dart';
 import '../../components/login.dart';
 import '../../components/my_article_item.dart';
 
@@ -19,6 +24,45 @@ class _ProfilePageState extends State<ProfilePage>
   final _preferences = getIt<AppPreferences>();
 
   String _userId;
+
+  void _logout() async {
+    context.showAppDialog(
+      isDismissible: false,
+      child: AppDialogWaiting(),
+    );
+    await _preferences.clear();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      AppRoutes.onBoarding,
+      ModalRoute.withName('/'),
+    );
+  }
+
+  void _askLogout() {
+    context.showAppDialog(
+      child: AppDialogQuestion(
+        title: 'Logout',
+        question: 'Are you sure you want to leave us?',
+        actions: [
+          MaterialButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No'),
+          ),
+          AppRoundedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _logout();
+            },
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            radius: 5,
+            elevation: 0,
+            title: 'Yes',
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -64,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage>
                             overflow: TextOverflow.ellipsis,
                           ),
                           trailing: IconButton(
-                            onPressed: () {},
+                            onPressed: _askLogout,
                             tooltip: 'Logout',
                             color: Colors.red,
                             icon: Icon(Icons.login),
