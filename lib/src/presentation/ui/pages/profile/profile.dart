@@ -9,6 +9,7 @@ import '../../../utils/extensions.dart';
 import '../../components/buttons/rounded_button.dart';
 import '../../components/dialogs/question.dart';
 import '../../components/dialogs/waiting.dart';
+import '../../components/loading.dart';
 import '../../components/login.dart';
 import '../../components/my_article_item.dart';
 
@@ -64,11 +65,20 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
+  void _loadData() {
+    _bloc
+      ..getUserInformation(_userId)
+      ..getArticlesByUser(_userId);
+  }
+
   @override
   void initState() {
     super.initState();
-    _userId = _preferences.userId;
-    _bloc.getArticlesByUser(_userId);
+
+    if (_preferences.isLoggedIn) {
+      _userId = _preferences.userId;
+      _loadData();
+    }
   }
 
   @override
@@ -76,76 +86,87 @@ class _ProfilePageState extends State<ProfilePage>
     super.build(context);
     return SafeArea(
       child: _preferences.isLoggedIn
-          ? RefreshIndicator(
-              onRefresh: () {
-                return Future.value();
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverPadding(
-                      padding: const EdgeInsets.only(top: 20, bottom: 30),
-                      sliver: SliverToBoxAdapter(
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(0),
-                          onTap: () {},
-                          leading: Icon(
-                            Icons.account_circle,
-                            size: 60,
-                          ),
-                          title: Text(
-                            'Abdelouahed Medjoudja',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
+          ? BlocBuilder<ProfileBloc, ProfileState>(
+              cubit: _bloc,
+              builder: (_, state) => RefreshIndicator(
+                onRefresh: () {
+                  _loadData();
+                  return Future.value();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomScrollView(
+                    slivers: [
+                      state.userInformationState.fold(
+                        () => SliverToBoxAdapter(
+                          child: LoadingWidget(),
+                        ),
+                        (either) => either.fold(
+                          (apiError) => SliverToBoxAdapter(),
+                          (result) => SliverPadding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 30),
+                            sliver: SliverToBoxAdapter(
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(0),
+                                onTap: () {},
+                                leading: Icon(
+                                  Icons.account_circle,
+                                  size: 60,
+                                ),
+                                title: Text(
+                                  '${result.data.firstName} ${result.data.lastName}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                subtitle: Text(
+                                  result.data.email,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                trailing: IconButton(
+                                  onPressed: _askLogout,
+                                  tooltip: 'Logout',
+                                  color: Colors.red,
+                                  icon: Icon(Icons.login),
+                                ),
+                              ),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          subtitle: Text(
-                            'abdelouahed@gmail.com',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          trailing: IconButton(
-                            onPressed: _askLogout,
-                            tooltip: 'Logout',
-                            color: Colors.red,
-                            icon: Icon(Icons.login),
                           ),
                         ),
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Text(
-                        'My Articles',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
+                      SliverToBoxAdapter(
+                        child: Text(
+                          'My Articles',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                    BlocBuilder<ProfileBloc, ProfileState>(
-                      cubit: _bloc,
-                      builder: (_, state) => state.articlesState.fold(
-                        () => SliverToBoxAdapter(),
-                        (a) => a.fold(
-                          (l) => SliverToBoxAdapter(),
-                          (r) => SliverList(
+                      state.articlesState.fold(
+                        () => SliverToBoxAdapter(
+                          child: LoadingWidget(),
+                        ),
+                        (either) => either.fold(
+                          (apiError) => SliverToBoxAdapter(),
+                          (result) => SliverList(
                             delegate: SliverChildBuilderDelegate(
                               (_, index) => MyArticleItemWidget(
-                                article: r.data[index],
+                                article: result.data[index],
                               ),
-                              childCount: r.data.length,
+                              childCount: result.data.length,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    SliverPadding(
-                      padding: const EdgeInsets.only(bottom: 100),
-                    ),
-                  ],
+                      SliverPadding(
+                        padding: const EdgeInsets.only(bottom: 100),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )

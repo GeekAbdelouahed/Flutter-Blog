@@ -28,9 +28,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     super.initState();
-    _userId = _preferences.userId;
 
-    _loadData();
+    if (_preferences.isLoggedIn) {
+      _userId = _preferences.userId;
+      _loadData();
+    }
   }
 
   @override

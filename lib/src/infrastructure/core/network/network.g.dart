@@ -63,6 +63,27 @@ class _AppNetworkClient implements AppNetworkClient {
   }
 
   @override
+  Future<ApiResponse<User>> getUserInformation(userId) async {
+    ArgumentError.checkNotNull(userId, 'userId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/users/$userId',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<User>.fromJson(
+      _result.data,
+      (json) => User.fromJson(json),
+    );
+    return value;
+  }
+
+  @override
   Future<ApiResponse<List<Category>>> getCategories() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
