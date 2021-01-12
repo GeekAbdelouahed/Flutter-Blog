@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../application/sign_in/bloc.dart';
 import '../../../../domain/entities/user/user.dart';
@@ -8,6 +9,7 @@ import '../../../../injection.dart';
 import '../../../routes/routes.dart';
 import '../../../utils/extensions.dart';
 import '../../components/buttons/rounded_button.dart';
+import '../../components/dialogs/waiting.dart';
 import '../../components/text_fields/rounded_outline_text_field.dart';
 
 class SignInPage extends StatefulWidget {
@@ -50,10 +52,14 @@ class _SignInPageState extends State<SignInPage> {
     _bloc.listen(
       (state) {
         state.signInState.fold(
-          () => null,
+          () => context.showAppDialog(
+            isDismissible: false,
+            child: AppDialogWaiting(),
+          ),
           (either) => either.fold(
             (apiError) {
-              print(apiError.message);
+              Navigator.pop(context);
+              Fluttertoast.showToast(msg: apiError.message);
             },
             (result) {
               _saveUserData(result.data);
