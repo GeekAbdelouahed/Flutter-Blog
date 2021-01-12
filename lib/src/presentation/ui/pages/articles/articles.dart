@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../application/articles/bloc.dart';
+import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
 import 'widgets/widgets.dart';
 
@@ -13,6 +14,8 @@ class ArticlesPage extends StatefulWidget {
 class _ArticlesPageState extends State<ArticlesPage>
     with AutomaticKeepAliveClientMixin {
   final _bloc = getIt<ArticlesBloc>();
+
+  final _preferences = getIt<AppPreferences>();
 
   void _loadData() {
     _bloc
@@ -60,18 +63,19 @@ class _ArticlesPageState extends State<ArticlesPage>
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(
-                          height: 50,
-                          width: 50,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.grey[200],
-                            child: IconButton(
-                              tooltip: 'Add Article',
-                              onPressed: () {},
-                              icon: Icon(Icons.post_add),
+                        if (_preferences.isLoggedIn)
+                          SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.grey[200],
+                              child: IconButton(
+                                tooltip: 'Add Article',
+                                onPressed: () {},
+                                icon: Icon(Icons.post_add),
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -90,8 +94,13 @@ class _ArticlesPageState extends State<ArticlesPage>
                   ),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.only(bottom: 100),
+                  padding: const EdgeInsets.only(bottom: 20),
                   sliver: ArticlesWidget(),
+                ),
+                SliverToBoxAdapter(
+                  child: const SizedBox(
+                    height: 100,
+                  ),
                 ),
               ],
             ),
