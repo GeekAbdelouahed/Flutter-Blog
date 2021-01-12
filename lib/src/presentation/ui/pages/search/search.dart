@@ -46,6 +46,7 @@ class _SearchPageState extends State<SearchPage>
                 ),
               ),
             ),
+            leading: const SizedBox(),
           ),
           BlocBuilder<SearchBloc, SearchState>(
             cubit: _bloc,

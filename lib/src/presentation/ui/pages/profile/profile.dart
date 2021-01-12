@@ -12,6 +12,7 @@ import '../../components/dialogs/waiting.dart';
 import '../../components/loading.dart';
 import '../../components/login.dart';
 import '../../components/my_article_item.dart';
+import 'widgets/widgets.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -93,51 +94,28 @@ class _ProfilePageState extends State<ProfilePage>
                   _loadData();
                   return Future.value();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: CustomScrollView(
-                    slivers: [
-                      state.userInformationState.fold(
-                        () => SliverToBoxAdapter(
-                          child: LoadingWidget(),
-                        ),
-                        (either) => either.fold(
-                          (apiError) => SliverToBoxAdapter(),
-                          (result) => SliverPadding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 30),
-                            sliver: SliverToBoxAdapter(
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(0),
-                                onTap: () {},
-                                leading: Icon(
-                                  Icons.account_circle,
-                                  size: 60,
-                                ),
-                                title: Text(
-                                  '${result.data.firstName} ${result.data.lastName}',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                subtitle: Text(
-                                  result.data.email,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                trailing: IconButton(
-                                  onPressed: _askLogout,
-                                  tooltip: 'Logout',
-                                  color: Colors.red,
-                                  icon: Icon(Icons.login),
-                                ),
-                              ),
+                child: CustomScrollView(
+                  slivers: [
+                    state.userInformationState.fold(
+                      () => SliverToBoxAdapter(
+                        child: LoadingWidget(),
+                      ),
+                      (either) => either.fold(
+                        (apiError) => SliverToBoxAdapter(),
+                        (result) => SliverPadding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          sliver: SliverToBoxAdapter(
+                            child: HeaderWidget(
+                              onLogout: _askLogout,
+                              user: result.data,
                             ),
                           ),
                         ),
                       ),
-                      SliverToBoxAdapter(
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      sliver: SliverToBoxAdapter(
                         child: Text(
                           'My Articles',
                           style: TextStyle(
@@ -146,27 +124,32 @@ class _ProfilePageState extends State<ProfilePage>
                           ),
                         ),
                       ),
-                      state.articlesState.fold(
-                        () => SliverToBoxAdapter(
-                          child: LoadingWidget(),
-                        ),
-                        (either) => either.fold(
-                          (apiError) => SliverToBoxAdapter(),
-                          (result) => SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (_, index) => MyArticleItemWidget(
+                    ),
+                    state.articlesState.fold(
+                      () => SliverToBoxAdapter(
+                        child: LoadingWidget(),
+                      ),
+                      (either) => either.fold(
+                        (apiError) => SliverToBoxAdapter(),
+                        (result) => SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (_, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                              ),
+                              child: MyArticleItemWidget(
                                 article: result.data[index],
                               ),
-                              childCount: result.data.length,
                             ),
+                            childCount: result.data.length,
                           ),
                         ),
                       ),
-                      SliverPadding(
-                        padding: const EdgeInsets.only(bottom: 100),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(bottom: 100),
+                    ),
+                  ],
                 ),
               ),
             )
