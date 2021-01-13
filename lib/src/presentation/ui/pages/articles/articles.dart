@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../application/articles/bloc.dart';
 import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
+import '../../../routes/routes.dart';
 import 'widgets/widgets.dart';
 
 class ArticlesPage extends StatefulWidget {
@@ -71,7 +72,11 @@ class _ArticlesPageState extends State<ArticlesPage>
                               backgroundColor: Colors.grey[200],
                               child: IconButton(
                                 tooltip: 'Add Article',
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(
+                                    AppRoutes.articleCreate,
+                                  );
+                                },
                                 icon: Icon(Icons.post_add),
                               ),
                             ),

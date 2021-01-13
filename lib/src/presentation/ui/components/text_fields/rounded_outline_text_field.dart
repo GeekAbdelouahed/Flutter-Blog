@@ -7,6 +7,8 @@ class AppRoundedOutlineTextFormField extends StatefulWidget {
   final bool obscureText;
   final TextInputAction textInputAction;
   final TextInputType keyboardType;
+  final double borderRadius;
+  final int maxLines;
   final String Function(String) validator;
 
   const AppRoundedOutlineTextFormField({
@@ -17,6 +19,8 @@ class AppRoundedOutlineTextFormField extends StatefulWidget {
     this.obscureText = false,
     this.textInputAction,
     this.keyboardType,
+    this.borderRadius = 20,
+    this.maxLines = 1,
     this.validator,
   }) : super(key: key);
 
@@ -42,13 +46,16 @@ class _AppRoundedOutlineTextFormFieldState
         obscureText: _isObscureText,
         textInputAction: widget.textInputAction,
         keyboardType: widget.keyboardType,
+        maxLines: widget.maxLines,
         decoration: InputDecoration(
-          prefixIcon: Icon(widget.prefixIcon),
-          suffixIcon:
-              widget.obscureText ? _buildObscureIcon() : const SizedBox(),
+          prefixIcon:
+              (widget.prefixIcon == null) ? null : Icon(widget.prefixIcon),
+          suffixIcon: widget.obscureText ? _buildObscureIcon() : null,
           hintText: widget.hint,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius,
+            ),
           ),
         ),
       );

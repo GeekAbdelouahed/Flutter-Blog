@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/article/article.dart';
+import '../ui/pages/article_create/article_create.dart';
 import '../ui/pages/article_details/article_details.dart';
 import '../ui/pages/home/home.dart';
 import '../ui/pages/on_boarding/on_boarding.dart';
@@ -35,6 +36,10 @@ abstract class AppRoutesGenerator {
           screen = ArticleDetails(article: args);
         else
           screen = _errorScreen(params.name);
+        break;
+
+      case AppRoutes.articleCreate:
+        screen = ArticleCreatePage();
         break;
 
       default:

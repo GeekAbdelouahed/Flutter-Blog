@@ -105,6 +105,27 @@ class _AppNetworkClient implements AppNetworkClient {
   }
 
   @override
+  Future<ApiResponse<dynamic>> createArticle(body) async {
+    ArgumentError.checkNotNull(body, 'body');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = body;
+    final _result = await _dio.request<Map<String, dynamic>>('/articles',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ApiResponse<dynamic>.fromJson(
+      _result.data,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
   Future<ApiResponse<List<Article>>> getArticles() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

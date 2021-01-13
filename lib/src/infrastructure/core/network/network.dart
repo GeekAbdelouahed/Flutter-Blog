@@ -33,6 +33,11 @@ abstract class AppNetworkClient {
   @GET('/categories')
   Future<ApiResponse<List<Category>>> getCategories();
 
+  @POST('/articles')
+  Future<ApiResponse> createArticle(
+    @Body() FormData data,
+  );
+
   @GET('/articles')
   Future<ApiResponse<List<Article>>> getArticles();
 
