@@ -2,15 +2,15 @@ import 'package:Blog/src/domain/entities/favorite/favorite.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/article/i_article_facade.dart';
+import '../../domain/article_details/i_article_details_facade.dart';
 import '../../domain/entities/api_error/api_error.dart';
 import '../../domain/entities/api_response/api_response.dart';
 import '../../domain/entities/article/article.dart';
 import '../../injection.dart';
 import '../core/network/network.dart';
 
-@LazySingleton(as: IArticleFacade)
-class ArticlesFacade implements IArticleFacade {
+@LazySingleton(as: IArticleDetailsFacade)
+class ArticlesDetailsFacade implements IArticleDetailsFacade {
   @override
   Future<Either<ApiError, ApiResponse<Article>>> getArticleDetails(
     String id, {

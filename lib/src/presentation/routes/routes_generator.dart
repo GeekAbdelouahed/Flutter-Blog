@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/article/article.dart';
-import '../ui/pages/article/article.dart';
+import '../ui/pages/article_details/article_details.dart';
 import '../ui/pages/home/home.dart';
 import '../ui/pages/on_boarding/on_boarding.dart';
 import '../ui/pages/sign_in/sign_in.dart';

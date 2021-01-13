@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../application/article/bloc.dart';
+import '../../../../application/article_details/bloc.dart';
 import '../../../../domain/entities/article/article.dart';
 import '../../../../infrastructure/core/preferences.dart';
 import '../../../../injection.dart';
@@ -20,7 +20,7 @@ class ArticleDetails extends StatefulWidget {
 }
 
 class _ArticleDetailsState extends State<ArticleDetails> {
-  final _bloc = getIt<ArticleBloc>();
+  final _bloc = getIt<ArticleDetailsBloc>();
   final _preferences = getIt<AppPreferences>();
 
   String _userId;
@@ -51,16 +51,16 @@ class _ArticleDetailsState extends State<ArticleDetails> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: BlocConsumer<ArticleBloc, ArticleState>(
+        body: BlocConsumer<ArticleDetailsBloc, ArticleDetailsState>(
             cubit: _bloc,
-            listener: (_, state) => state.articleState.fold(
+            listener: (_, state) => state.articleDetailsState.fold(
                   () => null,
                   (either) => either.fold(
                     (_) => null,
                     (result) => _isFavorite = result.data.isFavorite,
                   ),
                 ),
-            builder: (_, state) => state.articleState.fold(
+            builder: (_, state) => state.articleDetailsState.fold(
                   () => LoadingWidget(),
                   (either) => either.fold(
                     (apiError) => Center(
