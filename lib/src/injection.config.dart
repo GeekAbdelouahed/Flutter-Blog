@@ -7,12 +7,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
+import 'application/article_create/bloc.dart';
 import 'application/article_details/bloc.dart';
 import 'application/articles/bloc.dart';
-import 'infrastructure/article_details/article_details_facade.dart';
+import 'infrastructure/article_create/article_create_facade.dart';
+import 'infrastructure/article_details/article_details_facade.dart' as Blog;
 import 'infrastructure/articles/articles_facade.dart';
 import 'application/favorites/bloc.dart';
 import 'infrastructure/favorites/favorites_facade.dart';
+import 'domain/article_create/i_article_create_facade.dart';
 import 'domain/article_details/i_article_details_facade.dart';
 import 'domain/articles/i_articles_facade.dart';
 import 'domain/favorites/i_favorites_facade.dart';
@@ -38,7 +41,8 @@ GetIt $initGetIt(
   EnvironmentFilter environmentFilter,
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
-  gh.lazySingleton<IArticleDetailsFacade>(() => ArticlesDetailsFacade());
+  gh.lazySingleton<IArticleCreateFacade>(() => ArticlesDetailsFacade());
+  gh.lazySingleton<IArticleDetailsFacade>(() => Blog.ArticlesDetailsFacade());
   gh.lazySingleton<IArticlesFacade>(() => ArticlesFacade());
   gh.lazySingleton<IFavoritesFacade>(() => FavoritesFacade());
   gh.lazySingleton<IProfileFacade>(() => ProfileFacade());
@@ -49,6 +53,8 @@ GetIt $initGetIt(
   gh.factory<SearchBloc>(() => SearchBloc(get<ISearchFacade>()));
   gh.factory<SignInBloc>(() => SignInBloc(get<ISignInFacade>()));
   gh.factory<SignUpBloc>(() => SignUpBloc(get<ISignUpFacade>()));
+  gh.factory<ArticleCreateBloc>(
+      () => ArticleCreateBloc(get<IArticleCreateFacade>()));
   gh.factory<ArticleDetailsBloc>(
       () => ArticleDetailsBloc(get<IArticleDetailsFacade>()));
   gh.factory<ArticlesBloc>(() => ArticlesBloc(get<IArticlesFacade>()));

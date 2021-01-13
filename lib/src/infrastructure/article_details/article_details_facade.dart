@@ -1,4 +1,3 @@
-import 'package:Blog/src/domain/entities/favorite/favorite.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -6,6 +5,7 @@ import '../../domain/article_details/i_article_details_facade.dart';
 import '../../domain/entities/api_error/api_error.dart';
 import '../../domain/entities/api_response/api_response.dart';
 import '../../domain/entities/article/article.dart';
+import '../../domain/entities/favorite/favorite.dart';
 import '../../injection.dart';
 import '../core/network/network.dart';
 
