@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'image.dart';
 
@@ -8,7 +9,26 @@ class ImagesWidget extends StatefulWidget {
 }
 
 class _ImagesWidgetState extends State<ImagesWidget> {
-  List _selectedImages = List(5);
+  List<String> _selectedImages = [];
+
+  final _imagePicker = ImagePicker();
+
+  void _addImage() async {
+    final pickedImage = await _imagePicker.getImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedImage == null) return;
+
+    setState(() {
+      _selectedImages.add(pickedImage.path);
+    });
+  }
+
+  void _deleteImage(int index) async {
+    setState(() {
+      _selectedImages.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Column(
@@ -39,8 +59,30 @@ class _ImagesWidgetState extends State<ImagesWidget> {
             ),
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemCount: _selectedImages.length,
-              itemBuilder: (_, index) => ImageWidget(),
+              itemCount: _selectedImages.length + 1,
+              itemBuilder: (_, index) => index < _selectedImages.length
+                  ? ImageWidget(
+                      path: _selectedImages[index],
+                      onDelete: () {
+                        _deleteImage(index);
+                      },
+                    )
+                  : InkWell(
+                      onTap: _addImage,
+                      child: Container(
+                        height: 120,
+                        width: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.grey,
+                          size: 50,
+                        ),
+                      ),
+                    ),
               separatorBuilder: (_, __) => const SizedBox(
                 width: 10,
               ),

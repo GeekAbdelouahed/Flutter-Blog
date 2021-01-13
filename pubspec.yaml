@@ -20,6 +20,7 @@ dependencies:
   freezed_annotation: ^0.12.0
   get_it: ^5.0.3
   google_nav_bar: ^3.1.0
+  image_picker: ^0.6.7+21
   injectable: ^1.0.7
   intl: ^0.16.1
   logger: ^0.9.4
