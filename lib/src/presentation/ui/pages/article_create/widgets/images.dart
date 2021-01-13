@@ -4,6 +4,10 @@ import 'package:image_picker/image_picker.dart';
 import 'image.dart';
 
 class ImagesWidget extends StatefulWidget {
+  final Function(List<String>) onSelectImages;
+
+  const ImagesWidget({Key key, this.onSelectImages}) : super(key: key);
+
   @override
   _ImagesWidgetState createState() => _ImagesWidgetState();
 }
@@ -22,12 +26,16 @@ class _ImagesWidgetState extends State<ImagesWidget> {
     setState(() {
       _selectedImages.add(pickedImage.path);
     });
+
+    widget.onSelectImages?.call(_selectedImages);
   }
 
   void _deleteImage(int index) async {
     setState(() {
       _selectedImages.removeAt(index);
     });
+
+    widget.onSelectImages?.call(_selectedImages);
   }
 
   @override
