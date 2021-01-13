@@ -8,8 +8,9 @@ import '../../routes/routes.dart';
 
 class MyArticleItemWidget extends StatelessWidget {
   final Article article;
+  final VoidCallback onDelete;
 
-  const MyArticleItemWidget({Key key, @required this.article})
+  const MyArticleItemWidget({Key key, @required this.article, this.onDelete})
       : super(key: key);
 
   @override
