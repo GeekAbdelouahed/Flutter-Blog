@@ -56,13 +56,18 @@ class _ArticlesPageState extends State<ArticlesPage>
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Good Morning!',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            'Hi There 👋 📰',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w900,
+                            ),
                           ),
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         if (_preferences.isLoggedIn)
                           SizedBox(
