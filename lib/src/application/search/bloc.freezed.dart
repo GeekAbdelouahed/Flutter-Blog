@@ -35,6 +35,7 @@ mixin _$SearchState {
   Option<Either<ApiError, ApiResponse<List<Article>>>> get searchState;
   bool get isSearching;
 
+  @JsonKey(ignore: true)
   $SearchStateCopyWith<SearchState> get copyWith;
 }
 
@@ -142,6 +143,7 @@ class _$_SearchState implements _SearchState {
       const DeepCollectionEquality().hash(searchState) ^
       const DeepCollectionEquality().hash(isSearching);
 
+  @JsonKey(ignore: true)
   @override
   _$SearchStateCopyWith<_SearchState> get copyWith =>
       __$SearchStateCopyWithImpl<_SearchState>(this, _$identity);
@@ -159,5 +161,6 @@ abstract class _SearchState implements SearchState {
   @override
   bool get isSearching;
   @override
+  @JsonKey(ignore: true)
   _$SearchStateCopyWith<_SearchState> get copyWith;
 }

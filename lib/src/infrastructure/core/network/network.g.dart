@@ -23,7 +23,6 @@ class _AppNetworkClient implements AppNetworkClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(user?.toJson() ?? <String, dynamic>{});
-    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/auth/login',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -46,7 +45,6 @@ class _AppNetworkClient implements AppNetworkClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(user?.toJson() ?? <String, dynamic>{});
-    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/auth/register',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -266,7 +264,6 @@ class _AppNetworkClient implements AppNetworkClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(favorite?.toJson() ?? <String, dynamic>{});
-    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/favorites',
         queryParameters: queryParameters,
         options: RequestOptions(
@@ -289,7 +286,6 @@ class _AppNetworkClient implements AppNetworkClient {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(favorite?.toJson() ?? <String, dynamic>{});
-    _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('/favorites',
         queryParameters: queryParameters,
         options: RequestOptions(

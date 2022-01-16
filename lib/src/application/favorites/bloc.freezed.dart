@@ -32,6 +32,7 @@ const $FavoritesState = _$FavoritesStateTearOff();
 mixin _$FavoritesState {
   Option<Either<ApiError, ApiResponse<List<Favorite>>>> get favoritesState;
 
+  @JsonKey(ignore: true)
   $FavoritesStateCopyWith<FavoritesState> get copyWith;
 }
 
@@ -128,6 +129,7 @@ class _$_FavoritesState implements _FavoritesState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(favoritesState);
 
+  @JsonKey(ignore: true)
   @override
   _$FavoritesStateCopyWith<_FavoritesState> get copyWith =>
       __$FavoritesStateCopyWithImpl<_FavoritesState>(this, _$identity);
@@ -142,5 +144,6 @@ abstract class _FavoritesState implements FavoritesState {
   @override
   Option<Either<ApiError, ApiResponse<List<Favorite>>>> get favoritesState;
   @override
+  @JsonKey(ignore: true)
   _$FavoritesStateCopyWith<_FavoritesState> get copyWith;
 }

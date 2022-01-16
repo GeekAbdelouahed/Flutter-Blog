@@ -30,6 +30,7 @@ const $ArticleCreateState = _$ArticleCreateStateTearOff();
 mixin _$ArticleCreateState {
   Option<Either<ApiError, ApiResponse>> get articleCreateState;
 
+  @JsonKey(ignore: true)
   $ArticleCreateStateCopyWith<ArticleCreateState> get copyWith;
 }
 
@@ -122,6 +123,7 @@ class _$_ArticleCreateState implements _ArticleCreateState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(articleCreateState);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticleCreateStateCopyWith<_ArticleCreateState> get copyWith =>
       __$ArticleCreateStateCopyWithImpl<_ArticleCreateState>(this, _$identity);
@@ -136,5 +138,6 @@ abstract class _ArticleCreateState implements ArticleCreateState {
   @override
   Option<Either<ApiError, ApiResponse>> get articleCreateState;
   @override
+  @JsonKey(ignore: true)
   _$ArticleCreateStateCopyWith<_ArticleCreateState> get copyWith;
 }

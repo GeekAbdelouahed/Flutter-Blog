@@ -31,6 +31,7 @@ const $ArticleDetailsState = _$ArticleDetailsStateTearOff();
 mixin _$ArticleDetailsState {
   Option<Either<ApiError, ApiResponse<Article>>> get articleDetailsState;
 
+  @JsonKey(ignore: true)
   $ArticleDetailsStateCopyWith<ArticleDetailsState> get copyWith;
 }
 
@@ -127,6 +128,7 @@ class _$_ArticleDetailsState implements _ArticleDetailsState {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(articleDetailsState);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticleDetailsStateCopyWith<_ArticleDetailsState> get copyWith =>
       __$ArticleDetailsStateCopyWithImpl<_ArticleDetailsState>(
@@ -142,5 +144,6 @@ abstract class _ArticleDetailsState implements ArticleDetailsState {
   @override
   Option<Either<ApiError, ApiResponse<Article>>> get articleDetailsState;
   @override
+  @JsonKey(ignore: true)
   _$ArticleDetailsStateCopyWith<_ArticleDetailsState> get copyWith;
 }

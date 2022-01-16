@@ -35,6 +35,7 @@ mixin _$ArticlesState {
   Option<Either<ApiError, ApiResponse<List<Category>>>> get categoriesState;
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
 
+  @JsonKey(ignore: true)
   $ArticlesStateCopyWith<ArticlesState> get copyWith;
 }
 
@@ -151,6 +152,7 @@ class _$_ArticlesState implements _ArticlesState {
       const DeepCollectionEquality().hash(categoriesState) ^
       const DeepCollectionEquality().hash(articlesState);
 
+  @JsonKey(ignore: true)
   @override
   _$ArticlesStateCopyWith<_ArticlesState> get copyWith =>
       __$ArticlesStateCopyWithImpl<_ArticlesState>(this, _$identity);
@@ -169,5 +171,6 @@ abstract class _ArticlesState implements ArticlesState {
   @override
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
   @override
+  @JsonKey(ignore: true)
   _$ArticlesStateCopyWith<_ArticlesState> get copyWith;
 }

@@ -35,6 +35,7 @@ mixin _$ProfileState {
   Option<Either<ApiError, ApiResponse<User>>> get userInformationState;
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
 
+  @JsonKey(ignore: true)
   $ProfileStateCopyWith<ProfileState> get copyWith;
 }
 
@@ -147,6 +148,7 @@ class _$_ProfileState implements _ProfileState {
       const DeepCollectionEquality().hash(userInformationState) ^
       const DeepCollectionEquality().hash(articlesState);
 
+  @JsonKey(ignore: true)
   @override
   _$ProfileStateCopyWith<_ProfileState> get copyWith =>
       __$ProfileStateCopyWithImpl<_ProfileState>(this, _$identity);
@@ -165,5 +167,6 @@ abstract class _ProfileState implements ProfileState {
   @override
   Option<Either<ApiError, ApiResponse<List<Article>>>> get articlesState;
   @override
+  @JsonKey(ignore: true)
   _$ProfileStateCopyWith<_ProfileState> get copyWith;
 }

@@ -24,16 +24,18 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Blog',
-        theme: ThemeData(
-          primarySwatch: Colors.indigo,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        onGenerateRoute: AppRoutesGenerator.generateRoute,
-        initialRoute: getIt<AppPreferences>().isLoggedIn
-            ? AppRoutes.home
-            : AppRoutes.onBoarding,
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Blog',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      onGenerateRoute: AppRoutesGenerator.generateRoute,
+      initialRoute: getIt<AppPreferences>().isLoggedIn
+          ? AppRoutes.home
+          : AppRoutes.onBoarding,
+    );
+  }
 }

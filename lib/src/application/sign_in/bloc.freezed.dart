@@ -30,6 +30,7 @@ const $SignInState = _$SignInStateTearOff();
 mixin _$SignInState {
   Option<Either<ApiError, ApiResponse<User>>> get signInState;
 
+  @JsonKey(ignore: true)
   $SignInStateCopyWith<SignInState> get copyWith;
 }
 
@@ -119,6 +120,7 @@ class _$_SignInState implements _SignInState {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(signInState);
 
+  @JsonKey(ignore: true)
   @override
   _$SignInStateCopyWith<_SignInState> get copyWith =>
       __$SignInStateCopyWithImpl<_SignInState>(this, _$identity);
@@ -132,5 +134,6 @@ abstract class _SignInState implements SignInState {
   @override
   Option<Either<ApiError, ApiResponse<User>>> get signInState;
   @override
+  @JsonKey(ignore: true)
   _$SignInStateCopyWith<_SignInState> get copyWith;
 }
