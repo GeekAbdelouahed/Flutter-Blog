@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'validator.dart';
+import 'validators.dart' as validators;
 
 extension StringExtensions on String {
-  bool get isValidEmail => AppValidator.isValidEmail(this);
+  bool get isValidEmail => validators.isValidEmail(this);
 
-  bool get isValidPassword => AppValidator.isValidPassword(this);
+  bool get isValidPassword => validators.isValidPassword(this);
 }
 
 extension BuildContextExtensions on BuildContext {

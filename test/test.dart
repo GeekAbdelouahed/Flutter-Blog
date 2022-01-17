@@ -11,8 +11,8 @@ class MockArticlesFacade extends Mock implements IArticlesFacade {}
 void main() {
   MockArticlesFacade articlesFacade = MockArticlesFacade();
 
-  group('Hello Test group', () {
-    test('Hello Test', () async {
+  group('Articles Test', () {
+    test('Not empty articles', () async {
       when(() => articlesFacade.getArticles()).thenAnswer(
         ((_) async {
           return right(
