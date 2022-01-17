@@ -3,7 +3,31 @@ import '../lib/src/presentation/utils/extensions.dart';
 
 void main() {
   group('String extensions Test', () {
-    test('Not valid email test', () async {
+    test('Email without username test', () async {
+      String email = '@gmail.com';
+
+      bool isValid = email.isValidEmail;
+
+      expect(isValid, false);
+    });
+
+    test('Email without symbole @ test', () async {
+      String email = 'hello.gmail';
+
+      bool isValid = email.isValidEmail;
+
+      expect(isValid, false);
+    });
+
+    test('Email without mail server test', () async {
+      String email = 'hello@.com';
+
+      bool isValid = email.isValidEmail;
+
+      expect(isValid, false);
+    });
+
+    test('Email without domain test', () async {
       String email = 'hello@gmail';
 
       bool isValid = email.isValidEmail;
